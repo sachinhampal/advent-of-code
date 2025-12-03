@@ -28,8 +28,5 @@ def crack_code(
 def main(file_path: str) -> int:
     with open(file_path) as f:
         rotations_list = f.readlines()
+
     return crack_code(rotations_list)
-
-
-if __name__ == "__main__":
-    main("input.txt")

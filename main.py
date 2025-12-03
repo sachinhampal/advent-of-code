@@ -1,5 +1,6 @@
 import argparse as _ap
 import importlib as _il
+import timer as _timer
 
 
 def main():
@@ -22,8 +23,12 @@ def main():
     mod = _il.reload(mod)
     main_callable = getattr(mod, "main")
     input_data_file_path = f"{year}/{day_str}/{input_file_name}"
-    answer = main_callable(input_data_file_path)
+
+    with _timer.Timer() as t:
+        answer = main_callable(input_data_file_path)
+
     print(f"Answer is: {answer}")
+    print(f"Code ran in {t.elapsed} seconds")
 
 
 if __name__ == "__main__":

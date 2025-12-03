@@ -21,7 +21,3 @@ def main(filepath: str) -> int:
         id_ranges = f.readlines()[0].split(",")
 
     return find_invalid_ids(id_ranges)
-
-
-if __name__ == "__main__":
-    main("input.txt")

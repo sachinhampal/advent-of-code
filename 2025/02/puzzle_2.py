@@ -1,4 +1,7 @@
-def find_invalid_ids(id_ranges: list[tuple[str, ...]]) -> int:
+import typing as _t
+
+
+def find_invalid_ids(id_ranges: _t.Iterable[tuple[str, ...]]) -> int:
     invalid_ids_total_sum = 0
     for id_range in id_ranges:
         start_str, end_str = id_range
@@ -35,7 +38,3 @@ def main(filepath: str) -> int:
         id_ranges = [tuple(x.split("-")) for x in f.readlines()[0].split(",")]
 
     return find_invalid_ids(id_ranges)
-
-
-if __name__ == "__main__":
-    main("input.txt")
