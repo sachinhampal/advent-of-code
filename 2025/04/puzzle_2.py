@@ -33,15 +33,15 @@ def get_number_of_papers_to_remove(papers_map: list[list[str]]):
 def _get_neighboring_paper_count(papers_map, x, y, max_row, max_height):
     paper_count = 0
     for j in range(-1, 2):
+        y_offset = y + j
         for i in range(-1, 2):
-            if x == x + i and y == y + j:
+            x_offset = x + i
+            if x == x_offset and y == y_offset:
                 continue
-            if x + i >= max_row or y + j >= max_height:
-                continue
-            if x + i < 0 or y + j < 0:
+            elif not (0 <= x_offset < max_row) or not (0 <= y_offset < max_height):
                 continue
 
-            item = papers_map[x + i][y + j]
+            item = papers_map[x_offset][y_offset]
             if item == "@":
                 paper_count += 1
 
