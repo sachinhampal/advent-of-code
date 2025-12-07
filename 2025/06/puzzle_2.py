@@ -6,7 +6,7 @@ def main(filepath: str) -> int:
     # TODO: Revisit this solution
     with open(filepath) as f:
         row_iter = (row for row in f.read().splitlines())
-        
+
     row_list = list(row_iter)
     operator_list = row_list[-1]
     len_operator_list = len(operator_list)
@@ -26,9 +26,7 @@ def main(filepath: str) -> int:
                 ranges.append((offset, i + count))
             offset = i + count + 1
 
-    split_row_lists = [
-        [row[r[0]: r[1]] for r in ranges] for row in row_list[:-1]
-    ]
+    split_row_lists = [[row[r[0] : r[1]] for r in ranges] for row in row_list[:-1]]
     stripped_operator_list = [operator_list[x] for x, _ in ranges]
     transposed_lists = list(zip(*split_row_lists))
     corrected_operands = [
@@ -43,7 +41,7 @@ def main(filepath: str) -> int:
         nums, operator_str = corrected_operands[k][:-1], corrected_operands[k][-1]
         max_len = len(nums[0])
         s = []
-        for i in range(max_len-1, -1, -1):
+        for i in range(max_len - 1, -1, -1):
             st = ""
             for j in range(len(nums)):
                 st += nums[j][i]
