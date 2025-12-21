@@ -1,4 +1,7 @@
-def find_invalid_ids(id_ranges: list[str]) -> int:
+def main(filepath: str) -> int:
+    with open(filepath, encoding="utf-8") as f:
+        id_ranges = f.readlines()[0].split(",")
+
     invalid_ids_total_sum = 0
     for id_range in id_ranges:
         start_str, end_str = id_range.split("-")
@@ -14,10 +17,3 @@ def find_invalid_ids(id_ranges: list[str]) -> int:
                 invalid_ids_total_sum += candidate_id
 
     return invalid_ids_total_sum
-
-
-def main(filepath: str) -> int:
-    with open(filepath, encoding="utf-8") as f:
-        id_ranges = f.readlines()[0].split(",")
-
-    return find_invalid_ids(id_ranges)

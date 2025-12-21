@@ -1,9 +1,9 @@
-def crack_code(
-    rotations_list: list[str],
-    *,
-    dial_limit: int = 100,
-    starting_dial_number: int = 50,
-) -> int:
+def main(file_path: str) -> int:
+    with open(file_path) as f:
+        rotations_list = f.readlines()
+
+    dial_limit = 100
+    starting_dial_number = 50
     current_dial_number = starting_dial_number
     count = 0
     for rotation in rotations_list:
@@ -23,10 +23,3 @@ def crack_code(
         current_dial_number = new_dial_number
 
     return count
-
-
-def main(file_path: str) -> int:
-    with open(file_path) as f:
-        rotations_list = f.readlines()
-
-    return crack_code(rotations_list)

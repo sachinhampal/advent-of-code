@@ -12,7 +12,7 @@ def calculate_power_output(banks: _t.Iterable[_t.Iterable[int]]) -> int:
         batteries_list = list(bank)
         sub_total = 0
         while multiplier >= 0:
-            max_num, max_num_idx = _get_max_and_idx(batteries_list[:window])
+            max_num, max_num_idx = get_max_and_idx(batteries_list[:window])
             sub_total += max_num * (10**multiplier)
             batteries_list = batteries_list[max_num_idx + 1 :]
             window -= max_num_idx
@@ -23,7 +23,7 @@ def calculate_power_output(banks: _t.Iterable[_t.Iterable[int]]) -> int:
     return total
 
 
-def _get_max_and_idx(numbers: _t.Iterable[int]) -> tuple[int, int]:
+def get_max_and_idx(numbers: _t.Iterable[int]) -> tuple[int, int]:
     max_num, max_idx = 1, 0
     for idx, num in enumerate(numbers):
         if num > max_num:
@@ -35,6 +35,24 @@ def _get_max_and_idx(numbers: _t.Iterable[int]) -> tuple[int, int]:
 
 def main(filepath) -> int:
     with open(filepath, encoding="utf-8") as f:
-        banks_list = [[int(x) for x in y if x != "\n"] for y in f.readlines()]
+        banks_iter = ([int(x) for x in y if x != "\n"] for y in f.read().splitlines())
 
-    return calculate_power_output(banks_list)
+    max_battery_number = 12
+    banks_list = list(banks_iter)
+    len_bank = len(banks_list[0])
+    total = 0
+    for bank in banks_list:
+        window = len_bank - max_battery_number + 1
+        multiplier = max_battery_number - 1
+        batteries_list = list(bank)
+        sub_total = 0
+        while multiplier >= 0:
+            max_num, max_num_idx = get_max_and_idx(batteries_list[:window])
+            sub_total += max_num * (10**multiplier)
+            batteries_list = batteries_list[max_num_idx + 1 :]
+            window -= max_num_idx
+            multiplier -= 1
+
+        total += sub_total
+
+    return total

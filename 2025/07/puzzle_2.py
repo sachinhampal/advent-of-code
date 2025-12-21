@@ -2,7 +2,7 @@ import functools as _ft
 
 
 @_ft.lru_cache
-def find_beam_split_rec(
+def find_beam_split_recursive(
     point: tuple[int, int], len_levels: int, levels: tuple[tuple[int]]
 ) -> int:
     row_idx, col_idx = point
@@ -10,12 +10,12 @@ def find_beam_split_rec(
         return 1
 
     if levels[row_idx][col_idx] == ".":
-        return find_beam_split_rec((row_idx + 1, col_idx), len_levels, levels)
+        return find_beam_split_recursive((row_idx + 1, col_idx), len_levels, levels)
 
     elif levels[row_idx][col_idx] == "^":
-        return find_beam_split_rec(
+        return find_beam_split_recursive(
             (row_idx, col_idx - 1), len_levels, levels
-        ) + find_beam_split_rec((row_idx, col_idx + 1), len_levels, levels)
+        ) + find_beam_split_recursive((row_idx, col_idx + 1), len_levels, levels)
 
     return -1
 
@@ -34,4 +34,4 @@ def main(filepath: str) -> int:
 
     levels = tuple([tuple(row) for row in rows])
     len_levels = len(levels)
-    return find_beam_split_rec((1, starting_col), len_levels, tuple(levels))
+    return find_beam_split_recursive((1, starting_col), len_levels, tuple(levels))

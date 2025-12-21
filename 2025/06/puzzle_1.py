@@ -1,21 +1,5 @@
 import functools as _ft
 import operator as _op
-import typing as _t
-
-
-def solve_equations(
-    operators: list[_t.Callable[..., int]], operands: list[list[int]]
-) -> int:
-    equations_len = len(operators)
-    number_of_operands_per_equation = range(len(operands))
-    running_total = 0
-    for equation_idx in range(equations_len):
-        nums = [operands[x][equation_idx] for x in number_of_operands_per_equation]
-        operator = operators[equation_idx]
-        total = _ft.reduce(operator, nums)
-        running_total += total
-
-    return running_total
 
 
 def main(filepath: str) -> int:
@@ -32,4 +16,13 @@ def main(filepath: str) -> int:
     }
     operators = [operator_map[x] for x in next(row_iter).strip().split()]
 
-    return solve_equations(operators, operands)
+    equations_len = len(operators)
+    number_of_operands_per_equation = range(len(operands))
+    running_total = 0
+    for equation_idx in range(equations_len):
+        nums = [operands[x][equation_idx] for x in number_of_operands_per_equation]
+        operator = operators[equation_idx]
+        total = _ft.reduce(operator, nums)
+        running_total += total
+
+    return running_total
